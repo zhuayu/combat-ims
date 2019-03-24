@@ -68,7 +68,7 @@ export default {
           message: '删除成功!'
         });
       })
-      .catch((e) => {
+      .catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'

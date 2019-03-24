@@ -53,7 +53,6 @@ export default {
     }
   },
   created () {
-    let id = this.$route.params.id;
     classifyModel.list().then( res => {
       this.classify = res.data;
     })
