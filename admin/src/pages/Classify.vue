@@ -31,7 +31,8 @@
             prop="operation"
             label="操作">
             <template slot-scope="scope">
-              <el-button  type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button  type="text" icon="el-icon-edit" @click="handleEdit(scope.row,scope.$index)">编辑</el-button>
+              <el-button  type="text" icon="el-icon-delete" @click="handleDelete(scope.row,scope.$index)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -41,19 +42,23 @@
 
 <script>
 import Layout from '@/components/Layout'
-const mookClassifyData = [{
-  id: 1,
-  name: '分类一',
-}]
+import classifyModel from '@/models/classify'
+
 export default {
   data () {
     return {
-      tableData: mookClassifyData,
+      tableData: [],
+      dataIndex: null,
       formBoxID: null,
       formBoxShow: false,
       formBoxTitle: '',
       formBoxValue: '',
     }
+  },
+  created () {
+    classifyModel.list().then( res => {
+      this.tableData = res.data;
+    })
   },
   methods: {
     handleAdd() {
@@ -65,14 +70,70 @@ export default {
     handleCancel() {
       this.formBoxShow = false;
     },
-    handleEdit(data) {
+    handleEdit(data,index) {
+      this.dataIndex = index
       this.formBoxTitle = '编辑分类';
       this.formBoxID = data.id;
       this.formBoxValue = data.name;
       this.formBoxShow = true;
     },
     handleSave() {
-
+      let id = this.formBoxID;
+      let name = this.formBoxValue;
+      let index = this.dataIndex;
+      let params = { name };
+      if(!name ){
+        this.$message.error('缺少必要参数')
+        return
+      }
+      // 修改
+      if(id){
+        classifyModel.update(id,params)
+          .then(() => {
+            this.tableData[index].name = name
+            this.formBoxShow = false;
+            this.$message.success('修改成功');
+          })
+          .catch(()=>{
+            this.formBoxShow = false;
+          })
+      // 添加
+      }else{
+        classifyModel.add(params)
+          .then(res => {
+            let id = res.data.id;
+            params.id = id;
+            this.tableData.push(params)
+            this.formBoxShow = false;
+            this.$message.success('添加成功');
+          })
+          .catch(()=>{
+            this.formBoxShow = false;
+          })
+      }
+    },
+    handleDelete(data,index) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      .then(()=>{
+        return classifyModel.delete(data.id)
+      })
+      .then(()=>{
+        this.tableData.splice(index,1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     }
   },
   components: {

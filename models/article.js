@@ -7,8 +7,8 @@ class Article extends Base {
 
   joinClassify(params={}){
     return knex('article')
-      .join('classify', 'article.classify_id', '=', 'classify.id')
-      .select()
+      .leftJoin('classify', 'article.classify_id', '=', 'classify.id')
+      .select('article.title',{classify_name: 'classify.name'},'article.created_time','article.id')
       .where(params)
   }
 }

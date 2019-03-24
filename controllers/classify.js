@@ -61,6 +61,22 @@ const classifyController = {
       })
     }
   },
+  delete: async function(req,res,next){
+    let id = req.params.id;
+    try{
+      await Classify.delete(id);
+      res.json({ 
+        code: 200, 
+        message: '删除成功'
+      })
+    }catch(e){
+      console.log(e)
+      res.json({ 
+        code: 0,
+        message: '内部错误'
+      })
+    }
+  }
 }
 
 module.exports = classifyController;

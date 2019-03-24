@@ -41,7 +41,8 @@
             prop="operation"
             label="操作">
             <template slot-scope="scope">
-              <el-button  type="text" icon="el-icon-edit" @click="handleEditUser(scope.row)">编辑</el-button>
+              <el-button  type="text" icon="el-icon-edit" @click="handleEditUser(scope.row,scope.$index)">编辑</el-button>
+              <el-button  type="text" icon="el-icon-delete" @click="handleDelete(scope.row,scope.$index)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -50,17 +51,14 @@
 </template>
 
 <script>
+import userModel from '@/models/user'
 import Layout from '@/components/Layout'
-const mookUserData = [{
-  id: 1,
-  name: 'Jax',
-  phone: '13511111111',
-  password: '12312313'
-}]
+
 export default {
   data () {
     return {
-      userData: mookUserData,
+      userData: [],
+      dataIndex: null,
       formBoxID: null,
       formBoxShow: false,
       formBoxTitle: '',
@@ -70,6 +68,11 @@ export default {
         phone: '',
       },
     }
+  },
+  created () {
+    userModel.list().then( res => {
+      this.userData = res.data;
+    })
   },
   methods: {
     handleAddUser() {
@@ -82,17 +85,81 @@ export default {
     },
     handleCancel() {
       this.formBoxShow = false;
+      this.formBoxID = '';
+      this.formBoxValue.name = '';
+      this.formBoxValue.password = '';
+      this.formBoxValue.phone = '';
     },
-    handleEditUser(data) {
+    handleEditUser(data,index) {
       this.formBoxTitle = '编辑用户';
       this.formBoxID = data.id;
       this.formBoxValue.name = data.name;
       this.formBoxValue.password = data.password;
       this.formBoxValue.phone = data.phone;
       this.formBoxShow = true;
+      this.dataIndex = index
     },
     handleSave() {
-
+      let id = this.formBoxID;
+      let name = this.formBoxValue.name;
+      let phone = this.formBoxValue.phone;
+      let password = this.formBoxValue.password;
+      let index = this.dataIndex;
+      let params = { name, phone, password }
+      if(!name || !phone || !password){
+        this.$message.error('缺少必要参数')
+        return
+      }
+      // 修改
+      if(id){
+        userModel.update(id,params)
+          .then(() => {
+            this.userData[index].name = name
+            this.userData[index].phone = phone
+            this.userData[index].password = password
+            this.formBoxShow = false;
+            this.$message.success('修改成功');
+          })
+          .catch(()=>{
+            this.formBoxShow = false;
+          })
+      // 添加
+      }else{
+        userModel.add(params)
+          .then(res => {
+            let id = res.data.id;
+            params.id = id;
+            this.userData.push(params)
+            this.formBoxShow = false;
+            this.$message.success('添加成功');
+          })
+          .catch(()=>{
+            this.formBoxShow = false;
+          })
+      }
+    },
+    handleDelete(data,index) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      .then(()=>{
+        return userModel.delete(data.id)
+      })
+      .then(()=>{
+        this.userData.splice(index,1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     }
   },
   components: {

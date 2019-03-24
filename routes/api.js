@@ -22,5 +22,10 @@ router.post('/article' , articleController.insert);
 router.put('/article/:id' , articleController.update);
 router.get('/article/:id' , articleController.show);
 
+router.delete('/user/:id' , userController.delete);
+router.delete('/article/:id' , articleController.delete);
+router.delete('/classify/:id' , classifyController.delete);
+
+
 
 module.exports = router;
