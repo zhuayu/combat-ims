@@ -29,7 +29,7 @@ const userController = {
       })
     }
   },
-  show: async function(req,res,next){
+  list: async function(req,res,next){
     try{
       const users = await User.all();
       const usersDisplay = users.map((data)=>{

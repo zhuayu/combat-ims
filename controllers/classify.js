@@ -23,7 +23,7 @@ const classifyController = {
       })
     }
   },
-  show: async function(req,res,next){
+  list: async function(req,res,next){
     try{
       const classifys = await Classify.all();
       res.json({

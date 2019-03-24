@@ -28,7 +28,7 @@ const articleController = {
       })
     }
   },
-  show: async function(req,res,next){
+  list: async function(req,res,next){
     try{
       let params = {};
       let classify_id = req.query.classify_id
@@ -44,6 +44,23 @@ const articleController = {
       res.json({
         code:200,
         data: articlesDisplay
+      })
+    }catch(e){
+      console.log(e)
+      res.json({ 
+        code: 0,
+        message: '内部错误'
+      })
+    }
+  },
+  show: async function(req,res,next) {
+    try{
+      const id = req.params.id;
+      const articles = await Article.select({ id });
+      const article = articles[0];
+      res.json({
+        code:200,
+        data: article
       })
     }catch(e){
       console.log(e)

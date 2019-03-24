@@ -11,14 +11,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login' , authController.login);
-router.get('/user' , userController.show);
+router.get('/user' , userController.list);
 router.post('/user' , userController.insert);
 router.put('/user/:id' , userController.update);
-router.get('/classify' , classifyController.show);
+router.get('/classify' , classifyController.list);
 router.post('/classify' , classifyController.insert);
 router.put('/classify/:id' , classifyController.update);
-router.get('/article' , articleController.show);
+router.get('/article' , articleController.list);
 router.post('/article' , articleController.insert);
 router.put('/article/:id' , articleController.update);
+router.get('/article/:id' , articleController.show);
+
 
 module.exports = router;
