@@ -14,6 +14,14 @@ const appRouter = new Router({
 // eslint-disable-next-line
 appRouter.beforeEach((to, from, next) => {
     NProgress.start();
+
+    let hasToken = localStorage.getItem('token') ? true : false;
+    if(to.name === 'Login' && hasToken){
+      next({name: 'Article'})
+    }
+    if(to.name !== 'Login' && !hasToken){
+      next({name: 'Login'})
+    }
     next();
 })
 

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import userModel from '@/models/user'
+
 export default {
   data() {
     return {
@@ -46,8 +48,18 @@ export default {
           phone   : this.signForm.phone,
           password: this.signForm.password,
         }
-        // eslint-disable-next-line
-        console.log(data);
+        userModel.login(data).then(res=>{
+          if(res.code === 200){
+            let token = res.data.token;
+            localStorage.setItem('token',token);
+            this.$router.push({ path: '/article' });
+          }else{
+            this.$message.error('登录失败，账号密码错误')
+            this.submitLoad = false;
+          }
+        }).catch(()=>{
+          this.submitLoad = false;
+        })
       })
     }
   },
