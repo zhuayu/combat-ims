@@ -1,5 +1,5 @@
 <template>
-  <Layout :default-active="'/article/create'">
+  <Layout :default-active="'/article'">
       <div class="pg-main-header">
         <router-link to="/article">返回文章列表</router-link>
       </div>
@@ -19,11 +19,7 @@
               </el-select>
           </el-form-item>
           <el-form-item label="内容" label-width="60px">
-            <el-input
-              type="textarea"
-              placeholder="请输入内容"
-              v-model="article.content">
-            </el-input>
+            <quill-editor class="quill-editor" v-model="article.content" ref="myQuillEditor" :options="editorOption"></quill-editor>
           </el-form-item>
           <el-form-item label-width="60px">
             <el-button type="primary" @click="handleAdd">新建</el-button>
@@ -37,7 +33,11 @@
 import Layout from '@/components/Layout'
 import articleModel from '@/models/article'
 import classifyModel from '@/models/classify'
-
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import hljs from 'highlight.js'
+import { quillEditor } from 'vue-quill-editor'
 export default {
   data () {
     return {
@@ -46,10 +46,30 @@ export default {
         classify_id: null,
         content: ''
       },
-      classify: [{
-        id: 1,
-        name: '123'
-      }]
+      classify: [],
+      editorOption: {
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['clean'],
+            ['link', 'image', 'video']
+          ],
+          syntax: {
+            highlight: text => hljs.highlightAuto(text).value
+          }
+        }
+      }
     }
   },
   created () {
@@ -81,7 +101,8 @@ export default {
     }
   },
   components: {
-    Layout
+    Layout,
+    'quill-editor': quillEditor
   }
 }
 </script>
@@ -92,6 +113,10 @@ export default {
 
     .form-container{
       width: 80%;
+    }
+
+    .quill-editor{
+      line-height: 24px;
     }
   }
 </style>

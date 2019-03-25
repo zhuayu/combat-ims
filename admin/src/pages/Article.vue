@@ -9,8 +9,10 @@
           size="small"
           style="width: 100%">
           <el-table-column
-            prop="id"
-            label="id">
+            label="index">
+            <template slot-scope="scope">
+              {{scope.$index + 1}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="title"
