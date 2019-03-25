@@ -8,31 +8,35 @@ import ArticleEdit from '@/pages/ArticleEdit'
 export default [
     {
         path: '/',
+        redirect: { name: 'Login' }
+    },
+    {
+        path: '/admin',
         name: 'Login',
         component: Login
     },
     {
-        path: '/user',
+        path: '/admin/user',
         name: 'User',
         component: User
     },
     {
-        path: '/classify',
+        path: '/admin/classify',
         name: 'Classify',
         component: Classify
     },
     {
-        path: '/article',
+        path: '/admin/article',
         name: 'Article',
         component: Article
     },
     {
-        path: '/article/create',
+        path: '/admin/article/create',
         name: 'ArticleCreate',
         component: ArticleCreate
     },
     {
-        path: '/article/edit/:id',
+        path: '/admin/article/edit/:id',
         name: 'ArticleEdit',
         component: ArticleEdit
     }

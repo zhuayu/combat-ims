@@ -11,11 +11,11 @@
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose">
-        <el-menu-item index="/user">
+        <el-menu-item index="/admin/user">
           <i class="el-icon-date"></i>
           <span slot="title">用户管理</span>
         </el-menu-item>
-        <el-menu-item index="/classify">
+        <el-menu-item index="/admin/classify">
           <i class="el-icon-date"></i>
           <span slot="title">分类管理</span>
         </el-menu-item>
@@ -25,8 +25,8 @@
             <span>文章管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="/article">文章列表</el-menu-item>
-            <el-menu-item index="/article/create">新建文章</el-menu-item>
+            <el-menu-item index="/admin/article">文章列表</el-menu-item>
+            <el-menu-item index="/admin/article/create">新建文章</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

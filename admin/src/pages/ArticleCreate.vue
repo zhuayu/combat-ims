@@ -1,5 +1,5 @@
 <template>
-  <Layout :default-active="'/article/create'">
+  <Layout :default-active="'/admin/article/create'">
       <div class="pg-main-header">
         <router-link to="/article">返回文章列表</router-link>
       </div>
@@ -88,7 +88,7 @@ export default {
         return
       }
       articleModel.add({title, classify_id, content}).then(()=>{
-        this.$router.push({ path: '/article' });
+        this.$router.replace({ name: 'Article'});
         this.$message.success('添加成功');
       })
       .catch(()=>{

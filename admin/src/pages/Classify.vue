@@ -1,5 +1,5 @@
 <template>
-  <Layout :default-active="'/classify'">
+  <Layout :default-active="'/admin/classify'">
       <div class="pg-main-header">
         <el-button type="primary" @click="handleAdd">添加分类</el-button>
         <el-dialog :title="formBoxTitle" :visible="formBoxShow" :show-close="false">

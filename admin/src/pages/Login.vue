@@ -52,7 +52,7 @@ export default {
           if(res.code === 200){
             let token = res.data.token;
             localStorage.setItem('token',token);
-            this.$router.push({ path: '/article' });
+            this.$router.replace({ name: 'Article'});
           }else{
             this.$message.error('登录失败，账号密码错误')
             this.submitLoad = false;

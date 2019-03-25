@@ -31,7 +31,7 @@ export default {
   methods: {
     logout (){
       localStorage.clear();
-      this.$router.replace('/');
+      this.$router.replace({ name: 'Login'});
     }
   },
   components: {

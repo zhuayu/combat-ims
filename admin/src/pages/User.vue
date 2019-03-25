@@ -1,5 +1,5 @@
 <template>
-  <Layout :default-active="'/user'">
+  <Layout :default-active="'/admin/user'">
       <div class="pg-main-header">
         <el-button type="primary" @click="handleAddUser">添加用户</el-button>
         <el-dialog :title="formBoxTitle" :visible="formBoxShow" :show-close="false">

@@ -1,5 +1,5 @@
 <template>
-  <Layout :default-active="'/article'">
+  <Layout :default-active="'/admin/article'">
       <div class="pg-main-header">
         <router-link to="/article">返回文章列表</router-link>
       </div>
@@ -22,7 +22,7 @@
             <quill-editor class="quill-editor" v-model="article.content" ref="myQuillEditor" :options="editorOption"></quill-editor>
           </el-form-item>
           <el-form-item label-width="60px">
-            <el-button type="primary" @click="handleAdd">新建</el-button>
+            <el-button type="primary" @click="handleAdd">保存</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -92,7 +92,7 @@ export default {
         return
       }
       articleModel.update(id,{title, classify_id, content}).then(()=>{
-        this.$router.push({ path: '/article' });
+        this.$router.replace({ name: 'Article'});
         this.$message.success('修改成功');
       })
       .catch(()=>{

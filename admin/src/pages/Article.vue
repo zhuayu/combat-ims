@@ -1,7 +1,7 @@
 <template>
-  <Layout :default-active="'/article'">
+  <Layout :default-active="'/admin/article'">
       <div class="pg-main-header">
-        <router-link to="/article/create">新建文章</router-link>
+        <router-link :to="{name: 'ArticleCreate'}">新建文章</router-link>
       </div>
       <div class="pg-main-body">
         <el-table
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleEdit (id) {
-      this.$router.push({ path: `/article/edit/${id}` });
+      this.$router.push({ name: 'ArticleEdit', params: { id } });
     },
     handleDelete (data,index) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
