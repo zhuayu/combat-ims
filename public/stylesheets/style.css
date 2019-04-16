@@ -3,34 +3,45 @@ body {
   font-size: 15px;
   background-color: #f2f3f5;
   margin: 0;
-  padding-top: 55px;
+  padding-top: 80px;
+  min-width: 1000px;
 }
 
 a {
-  color: #f60;
+  color: #666;
   text-decoration: none;
 }
 
+a:active{
+  color: #666;
+}
+
 header{
-  background-color: #f60;
+  background-color: #35b558;
   position: fixed;
   z-index: 999;
-  height: 55px;
   top: 0;
   left: 0;
   right: 0;
 }
 
-.header .inner {
-  max-width: 800px;
+
+.header .container {
+  width: 1000px;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 15px 5px;
+  padding: 20px 0;
+}
+
+.header .logo-img{
+  height: 40px;
+  margin-right: 150px;
+  float: left;
 }
 
 .header a {
-  color: hsla(0,0%,100%,.8);
-  line-height: 24px;
+  color: #fff;
+  line-height: 40px;
   transition: color .15s ease;
   display: inline-block;
   vertical-align: middle;
@@ -47,7 +58,7 @@ header{
 
 .news-list {
   margin: 30px auto;
-  max-width: 800px;
+  width: 1000px;
   transition: all .5s cubic-bezier(.55,0,.1,1);
   background-color: #fff;
   border-radius: 2px;
@@ -57,39 +68,37 @@ header{
   list-style-type: none;
   padding: 0;
   margin: 0;
+  padding: 20px;
 }
 
 .news-item {
   background-color: #fff;
-  padding: 20px 30px 20px 80px;
-  border-bottom: 1px solid #eee;
+  padding: 10px 20px;
   position: relative;
   line-height: 20px;
 }
-
-.news-item .score {
-  color: #f60;
-  font-size: 1.1em;
-  font-weight: 700;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 80px;
-  text-align: center;
-  margin-top: -10px;
+.news-item:hover{
+  background-color: #fafafa;
+  cursor: pointer;
 }
 
-.news-item {
-  background-color: #fff;
-  padding: 20px 30px 20px 80px;
-  border-bottom: 1px solid #eee;
-  position: relative;
+.news-item >a {
+  display: block;
+  color: #666;
+}
+
+.news-item .title{
+  margin: 10px 0;
+  line-height: 24px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.news-item .meta{
+  font-size: 14px;
+  color: #999;
   line-height: 20px;
-}
-
-.news-item .meta {
-  font-size: .85em;
-  color: #828282;
 }
 
 .article-container{

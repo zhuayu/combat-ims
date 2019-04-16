@@ -1,18 +1,26 @@
 <template>
   <div class="login-page" @keyup.enter="submitForm">
-    <div class="login-container">
-      <h2>IMS 内容管理登录</h2>
-      <el-form class="sign-form" :model="signForm" status-icon :rules="rules" ref="signForm">
-        <el-form-item prop="phone">
-          <el-input type="number" v-model="signForm.phone" placeholder="手机号码"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" v-model="signForm.password" placeholder="登录密码" auto-complete="off"></el-input>
-        </el-form-item>
-        <div>
-          <el-button class="sign-submit" type="primary" @click="submitForm" :loading="submitLoad">登录</el-button>
-        </div>
-      </el-form>
+    <div class="bg-section">
+      <img src="@/assets/login_bg.jpg">
+    </div>
+    <div class="login-section">
+      <div class="header-section">
+        <img src="@/assets/login_logo.png">
+      </div>
+      <div class="login-container">
+        <h2 class="login-content-title">极客信息发布管理</h2>
+        <el-form class="sign-form" :model="signForm" status-icon :rules="rules" ref="signForm">
+          <el-form-item prop="phone">
+            <el-input type="number" v-model="signForm.phone" placeholder="手机号码"></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input type="password" v-model="signForm.password" placeholder="登录密码" auto-complete="off"></el-input>
+          </el-form-item>
+          <div>
+            <el-button class="sign-submit" type="primary" @click="submitForm" :loading="submitLoad">登录</el-button>
+          </div>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +66,7 @@ export default {
             this.submitLoad = false;
           }
         }).catch(()=>{
+          this.$message.error('服务器错误，请联系管理员')
           this.submitLoad = false;
         })
       })
@@ -70,18 +79,42 @@ export default {
 .login-page{
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
+  .bg-section{
+    width: 40%;
+    height: 100vh;
+    font-size: 0;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .login-section{
+    position: relative;
+    flex: 1;
+    padding: 40px 60px;
+  }
 
   .login-container{
-    width: 300px;
-    padding: 40px;
-    border: 1px solid #e4e4e4;
+    width: 360px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .login-content-title{
+      font-size: 30px;
+      margin-bottom: 60px;
+      font-weight: 500;
+    }
   }
 
   .sign-submit{
     display: block;
     width: 100%;
+    background-color: #35b558;
   }
 }
 </style>
