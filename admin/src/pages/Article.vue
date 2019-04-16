@@ -1,7 +1,9 @@
 <template>
   <Layout :default-active="'/admin/article'">
       <div class="pg-main-header">
-        <router-link :to="{name: 'ArticleCreate'}">新建文章</router-link>
+        <!-- <router-li
+          nk :to="{name: 'ArticleCreate'}">新建文章</router-link> -->
+        <el-button type="primary" @click="()=>this.$router.push({name: 'ArticleCreate'})">新建文章</el-button>
       </div>
       <div class="pg-main-body">
         <el-table

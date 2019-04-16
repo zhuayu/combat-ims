@@ -1,7 +1,8 @@
 <template>
   <Layout :default-active="'/admin/article/create'">
       <div class="pg-main-header">
-        <router-link to="/article">返回文章列表</router-link>
+        <!-- <router-link to="/article">返回文章列表</router-link> -->
+        <el-button type="primary" @click="()=>this.$router.back()">返回文章列表</el-button>
       </div>
       <div class="pg-main-body">
         <el-form class="form-container">

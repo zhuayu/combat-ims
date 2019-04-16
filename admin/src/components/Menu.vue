@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="logo-container">
-      <img class="logo" src="~@/assets/logo.png">
-      <span>IMS管理</span>
+      <img class="logo" src="~@/assets/login_logo.png">
+      <span>信息管理</span>
     </div>
     <el-col>
       <el-menu
