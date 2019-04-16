@@ -103,7 +103,7 @@ header{
 
 .article-container{
   margin: 30px auto;
-  max-width: 800px;
+  max-width: 1000px;
   transition: all .5s cubic-bezier(.55,0,.1,1);
   background-color: #fff;
   border-radius: 2px;
